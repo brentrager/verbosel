@@ -474,10 +474,10 @@ html_body:
     db '</footer>'
 
     db '<script>'
-    db 'document.querySelectorAll("a[href^=\'#\']").forEach(a=>{'
+    db "document.querySelectorAll(", 22h, "a[href^=", 27h, "#", 27h, "]", 22h, ").forEach(a=>{"
     db 'a.addEventListener("click",e=>{'
     db 'e.preventDefault();'
-    db 'document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:"smooth"});'
+    db "document.querySelector(a.getAttribute(", 22h, "href", 22h, ")).scrollIntoView({behavior:", 22h, "smooth", 22h, "});"
     db '});});'
 
     ; Intersection observer for fade-in animations

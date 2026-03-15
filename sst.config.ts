@@ -18,12 +18,12 @@ export default $config({
         const vpc = new sst.aws.Vpc("Vpc", { nat: "ec2" });
         const cluster = new sst.aws.Cluster("Cluster", { vpc });
 
-        // The Assembly HTTP Server - raw x86_64 syscalls serving HTML
-        const asmServer = new sst.aws.Service("AsmServer", {
+        const server = new sst.aws.Service("AsmServer", {
             cluster,
             image: {
                 context: "./server",
-                dockerfile: "server/Dockerfile",
+                dockerfile: "Dockerfile",
+                args: { CACHE_BUST: Date.now().toString() },
             },
             cpu: "0.25 vCPU",
             memory: "0.5 GB",
@@ -33,30 +33,14 @@ export default $config({
                     { listen: "443/https", forward: "8080/http" },
                 ],
                 domain: {
-                    name: "asm.rager.tech",
+                    name: "verbosel.rager.tech",
                     dns: sst.cloudflare.dns(),
                 },
             },
         });
 
-        // The Next.js documentation/landing site
-        const site = new sst.aws.Nextjs("Site", {
-            path: "site",
-            openNextVersion: "3.6.6",
-            domain: {
-                name: "assembly-wf.rager.tech",
-                dns: sst.cloudflare.dns(),
-            },
-            environment: {
-                NEXT_PUBLIC_ASM_SERVER_URL: $interpolate`${asmServer.url}`.apply(
-                    (v) => v.replace(/\/+$/, ""),
-                ),
-            },
-        });
-
         return {
-            asmServer: asmServer.url,
-            site: site.url,
+            url: server.url,
         };
     },
 });
