@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --green: #00ff41;
+    --green-dim: #00aa2a;
+    --green-bright: #33ff66;
+    --amber: #ffbf00;
+    --red: #ff3333;
+    --cyan: #00ffff;
+    --purple: #bf40bf;
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-jetbrains);
+    --font-mono: var(--font-jetbrains);
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+::selection {
+    background: var(--green);
+    color: var(--background);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--green);
+    border-radius: 4px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 5px #00ff41, 0 0 20px #00ff41; }
+    50% { text-shadow: 0 0 20px #00ff41, 0 0 60px #00ff41, 0 0 100px #00aa2a; }
+}
+
+@keyframes scan {
+    0% { top: -100%; }
+    100% { top: 100%; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.text-shadow-green {
+    text-shadow: 0 0 10px #00ff41, 0 0 40px rgba(0, 255, 65, 0.3);
+}
+
+.text-shadow-amber {
+    text-shadow: 0 0 10px #ffbf00, 0 0 40px rgba(255, 191, 0, 0.3);
+}
+
+.border-glow {
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(0, 255, 65, 0.05);
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.animate-blink {
+    animation: blink 1s step-end infinite;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.crt::before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background:
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.03));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 99;
+}

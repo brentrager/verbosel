@@ -1,0 +1,9 @@
+.env
+.envrc
+*.log
+node_modules/
+site/.next/
+site/.open-next/
+.sst/
+server/server
+server/*.o

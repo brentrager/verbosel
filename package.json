@@ -1,0 +1,24 @@
+{
+    "name": "verbosel",
+    "private": true,
+    "packageManager": "pnpm@10.8.1",
+    "scripts": {
+        "dev": "sst dev",
+        "dev:site": "cd site && pnpm dev",
+        "dev:asm": "cd server && make run",
+        "sst:deploy": "rm -rf site/.open-next site/.next && npx sst deploy --stage production",
+        "sst:remove": "npx sst remove --stage production",
+        "lint": "cd site && pnpm lint",
+        "fmt": "cd site && pnpm fmt",
+        "typecheck": "cd site && pnpm tsc --noEmit"
+    },
+    "dependencies": {
+        "sst": "^4.2.7"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "sharp"
+        ]
+    }
+}
